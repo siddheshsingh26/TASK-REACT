@@ -179,6 +179,7 @@ export const Form = () => {
                 selected={duedate}
                 onChange={(date) => setDuedate(date)}
                 placeholderText="Due Date"
+                id="my-datepicker"
                 dateFormat="yyyy-MM-dd"
               />
 
@@ -223,6 +224,7 @@ export const Form = () => {
                   selected={duedate}
                   onChange={(date) => setDuedate(date)}
                   placeholderText="Due Date"
+                  className="my-datepicker"
                   dateFormat="yyyy-MM-dd"
                 />
               </div>
