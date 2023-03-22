@@ -8,7 +8,10 @@
 
 html,
 body {
-  background-color: #e7e7e7;
+  background-image: url(https://images.pexels.com/photos/907485/pexels-photo-907485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .wrapper {
