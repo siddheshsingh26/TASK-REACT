@@ -1,4 +1,3 @@
-// we need useState and useEffect hooks
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,7 +25,7 @@ export const Form = () => {
   // todo value state
   const [todoValue, setTodoValue] = useState("");
   const [description, setDescriptipn] = useState("");
-  const [duedate, setDuedate] = useState(null);
+  const [duedate, setDuedate] = useState(new Date());
 
   // todos array of objects
   const [todos, setTodos] = useState(getTodosFromLS());
