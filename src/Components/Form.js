@@ -10,6 +10,7 @@ import { plus } from "react-icons-kit/feather/plus";
 import { edit2 } from "react-icons-kit/feather/edit2";
 import { trash } from "react-icons-kit/feather/trash";
 import { fireEvent } from "@testing-library/react";
+import { useRef } from "react";
 
 // getting todos from local storage
 const getTodosFromLS = () => {
@@ -150,6 +151,12 @@ export const Form = () => {
   const [sortedTodos, setSortedTodos] = useState(
     incompleteTodos.concat(completedTodos)
   );
+  const divRef = useRef(null);
+
+  const handleScroll = (e) => {
+    const div = divRef.current;
+    div.scrollTop += e.deltaY;
+  };
 
   return (
     <>
@@ -233,31 +240,58 @@ export const Form = () => {
 
       {/* start of rendering todos depending on
           if we have length of todos greater than 0 */}
+
       {sortedTodos.length > 0 && (
         <>
-          {sortedTodos.map((individualTodo, index) => (
-            <div className="todo" key={individualTodo.ID}>
-              <div>
-                {/* we dont need to show checkbox when edit
-                      button is clicked */}
-                {editForm === false && (
-                  <input
-                    type="checkbox"
-                    checked={individualTodo.completed}
-                    onChange={() => handleCheckbox(individualTodo.ID)}
-                    className="statusbox"
-                  />
-                )}
+          <div
+            ref={divRef}
+            onWheel={handleScroll}
+            style={{ overflow: "hidden", height: "480px" }}
+          >
+            {sortedTodos.map((individualTodo, index) => (
+              <div className="todo" key={individualTodo.ID}>
                 <div>
-                  <span
-                    style={
-                      individualTodo.completed === true
-                        ? { textDecoration: "line-through" }
-                        : { textDecoration: "none" }
-                    }
-                  >
-                    Date : {individualTodo.Date} Time : {individualTodo.Time}
-                  </span>
+                  {/* we dont need to show checkbox when edit
+                      button is clicked */}
+                  {editForm === false && (
+                    <input
+                      type="checkbox"
+                      checked={individualTodo.completed}
+                      onChange={() => handleCheckbox(individualTodo.ID)}
+                      className="statusbox"
+                    />
+                  )}
+                  <div>
+                    <span
+                      style={
+                        individualTodo.completed === true
+                          ? { textDecoration: "line-through" }
+                          : { textDecoration: "none" }
+                      }
+                    >
+                      Date : {individualTodo.Date} Time : {individualTodo.Time}
+                    </span>
+                    <hr />
+                    <span
+                      style={
+                        individualTodo.completed === true
+                          ? { textDecoration: "line-through" }
+                          : { textDecoration: "none" }
+                      }
+                    >
+                      Task_Name : {individualTodo.TodoValue}
+                    </span>
+                    <hr />
+                    <span
+                      style={
+                        individualTodo.completed === true
+                          ? { textDecoration: "line-through" }
+                          : { textDecoration: "none" }
+                      }
+                    >
+                      Description : {individualTodo.Description}
+                    </span>
+                  </div>
                   <hr />
                   <span
                     style={
@@ -266,49 +300,28 @@ export const Form = () => {
                         : { textDecoration: "none" }
                     }
                   >
-                    Task_Name : {individualTodo.TodoValue}
-                  </span>
-                  <hr />
-                  <span
-                    style={
-                      individualTodo.completed === true
-                        ? { textDecoration: "line-through" }
-                        : { textDecoration: "none" }
-                    }
-                  >
-                    Description : {individualTodo.Description}
+                    DueDate : {individualTodo.DueDate}
                   </span>
                 </div>
-                <hr />
-                <span
-                  style={
-                    individualTodo.completed === true
-                      ? { textDecoration: "line-through" }
-                      : { textDecoration: "none" }
-                  }
-                >
-                  DueDate : {individualTodo.DueDate}
-                </span>
-              </div>
 
-              {/* we dont need to show edit and delete icons when edit
+                {/* we dont need to show edit and delete icons when edit
                   button is clicked */}
-              {editForm === false && (
-                <div className="edit-and-delete">
-                  <div
-                    style={{ marginRight: 7 + "px" }}
-                    onClick={() => handleEdit(individualTodo, index)}
-                  >
-                    <Icon icon={edit2} size={25} />
+                {editForm === false && (
+                  <div className="edit-and-delete">
+                    <div
+                      style={{ marginRight: 7 + "px" }}
+                      onClick={() => handleEdit(individualTodo, index)}
+                    >
+                      <Icon icon={edit2} size={25} />
+                    </div>
+                    <div onClick={() => handleDelete(individualTodo.ID)}>
+                      <Icon icon={trash} size={25} />
+                    </div>
                   </div>
-                  <div onClick={() => handleDelete(individualTodo.ID)}>
-                    <Icon icon={trash} size={25} />
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-
+                )}
+              </div>
+            ))}
+          </div>
           {/* delete all todos */}
           {editForm === false && (
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
