@@ -10,6 +10,7 @@ import { Icon } from "react-icons-kit";
 import { plus } from "react-icons-kit/feather/plus";
 import { edit2 } from "react-icons-kit/feather/edit2";
 import { trash } from "react-icons-kit/feather/trash";
+import { fireEvent } from "@testing-library/react";
 
 // getting todos from local storage
 const getTodosFromLS = () => {
@@ -25,7 +26,7 @@ export const Form = () => {
   // todo value state
   const [todoValue, setTodoValue] = useState("");
   const [description, setDescriptipn] = useState("");
-  const [duedate, setDuedate] = useState("");
+  const [duedate, setDuedate] = useState(null);
 
   // todos array of objects
   const [todos, setTodos] = useState(getTodosFromLS());
@@ -174,15 +175,11 @@ export const Form = () => {
                 value={description}
               />
               <hr />
-
               <DatePicker
-                selected={duedate}
-                onChange={(date) => setDuedate(date)}
+                onChange={(date) => setDuedate(date.toLocaleString())}
                 placeholderText="Due Date"
-                id="my-datepicker"
                 dateFormat="yyyy-MM-dd"
               />
-
               <div className="button">
                 <button type="submit">
                   <Icon icon={plus} size={20} />
@@ -221,10 +218,8 @@ export const Form = () => {
               <hr />
               <div>
                 <DatePicker
-                  selected={duedate}
-                  onChange={(date) => setDuedate(date)}
+                  onChange={(date) => setDuedate(date.toLocaleString())}
                   placeholderText="Due Date"
-                  className="my-datepicker"
                   dateFormat="yyyy-MM-dd"
                 />
               </div>
