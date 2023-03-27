@@ -27,7 +27,7 @@ export const Form = () => {
   const [todoValue, setTodoValue] = useState("");
   const [description, setDescriptipn] = useState("");
   const [duedate, setDuedate] = useState(new Date());
-
+  console.log(duedate);
   // todos array of objects
   const [todos, setTodos] = useState(getTodosFromLS());
 
@@ -59,7 +59,7 @@ export const Form = () => {
       Date:
         date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear(),
       Time: date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
-      DueDate: duedate,
+      DueDate: duedate.toLocaleString(),
     };
     // end of creating a todo object
     setTodos([...todos, todoObject]);
@@ -167,6 +167,7 @@ export const Form = () => {
             <div className="input-and-button">
               <input
                 type="text"
+                id="input-value"
                 placeholder="Add Task"
                 required
                 onChange={(e) => setTodoValue(e.target.value)}
@@ -175,6 +176,7 @@ export const Form = () => {
               <hr />
               <input
                 type="text"
+                id="input-value"
                 placeholder="Description"
                 required
                 onChange={(e) => setDescriptipn(e.target.value)}
@@ -182,7 +184,9 @@ export const Form = () => {
               />
               <hr />
               <DatePicker
-                onChange={(date) => setDuedate(date.toLocaleString())}
+                selected={duedate}
+                onChange={(date) => setDuedate(date)}
+                id="small-font-size"
                 placeholderText="Due Date"
                 dateFormat="yyyy-MM-dd"
               />
@@ -205,6 +209,7 @@ export const Form = () => {
               <div>
                 <input
                   type="text"
+                  id="input-value"
                   placeholder="Edit your Item"
                   required
                   onChange={(e) => setTodoValue(e.target.value)}
@@ -215,6 +220,7 @@ export const Form = () => {
               <div>
                 <input
                   type="text"
+                  id="input-value"
                   placeholder="Add Description"
                   required
                   onChange={(e) => setDescriptipn(e.target.value)}
@@ -224,7 +230,9 @@ export const Form = () => {
               <hr />
               <div>
                 <DatePicker
-                  onChange={(date) => setDuedate(date.toLocaleString())}
+                  selected={duedate}
+                  onChange={(date) => setDuedate(date)}
+                  id="small-font-size"
                   placeholderText="Due Date"
                   dateFormat="yyyy-MM-dd"
                 />
