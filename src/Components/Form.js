@@ -98,6 +98,7 @@ export const Form = () => {
     setDuedate(todo.DueDate);
     setDescriptipn(todo.Description);
     setId(index);
+    console.log("edit option");
   };
 
   // edit todo submit
@@ -228,15 +229,15 @@ export const Form = () => {
                 />
               </div>
               <hr />
-              <div>
-                <DatePicker
-                  selected={duedate}
-                  onChange={(date) => setDuedate(date)}
-                  id="small-font-size"
-                  placeholderText="Due Date"
-                  dateFormat="yyyy-MM-dd"
-                />
-              </div>
+
+              {/* <DatePicker
+                selected={duedate}
+                onChange={(date) => setDuedate(date)}
+                id="small-font-size"
+                placeholderText="Due Date"
+                dateFormat="yyyy-MM-dd"
+              /> */}
+
               <div className="button edit">
                 <button type="submit">UPDATE</button>
               </div>
